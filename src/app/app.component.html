@@ -1,0 +1,12 @@
+<h4>decodificador: {{decodificador}}</h4>
+<h4>contadorPrograma: {{contadorPrograma}}</h4>
+<h4>contadorPrograma en binario: {{contadorPrograma.toString(2).padStart(4, '0')}}</h4>
+<h4>registroInstrucciones: {{registroInstruccion}}</h4>
+<h4>registroDireccionMemoria: {{registroDireccionMemoria}}</h4>
+<h4>registroDatosMemoria: {{registroDatoMemoria}}</h4>
+<h4>acumuladorALU: {{acumuladorALU}}</h4>
+<h4>registroEntradaALU: {{registroEntradaALU}}</h4>
+
+<button [disabled]="siguienteBloqueado" (click)="siguiente()">
+  Siguiente
+</button>
