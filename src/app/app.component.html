@@ -1,12 +1,63 @@
-<h4>decodificador: {{decodificador}}</h4>
-<h4>contadorPrograma: {{contadorPrograma}}</h4>
-<h4>contadorPrograma en binario: {{contadorPrograma.toString(2).padStart(4, '0')}}</h4>
-<h4>registroInstrucciones: {{registroInstruccion}}</h4>
-<h4>registroDireccionMemoria: {{registroDireccionMemoria}}</h4>
-<h4>registroDatosMemoria: {{registroDatoMemoria}}</h4>
-<h4>acumuladorALU: {{acumuladorALU}}</h4>
-<h4>registroEntradaALU: {{registroEntradaALU}}</h4>
+<div class="cpu-diagram">
+  <!-- Unidad de Control -->
+  <div class="control-unit">
+    <div class="section-title">Unidad de control</div>
+    <div class="control-elements">
+      <div class="text-valor">Decodificador</div>
+      <span class="valor valor-decodificador control-unit">{{decodificador}}</span>
+      <div class="text-valor">Contador de programa</div>
+      <span class="valor control-unit">{{contadorPrograma.toString(2).padStart(4, '0')}}</span>
+      <div class="text-valor">Registro de Instrucciones</div>
+      <span class="valor control-unit">{{registroInstruccion}}</span>
+    </div>
+  </div>
 
-<button [disabled]="siguienteBloqueado" (click)="siguiente()">
-  Siguiente
-</button>
+  <!-- Memoria -->
+  <div class="memory">
+    <div class="section-title">Memoria</div>
+    <div class="memory-elements">
+      <div class="text-valor">Registro de Direcciones</div>
+      <span class="valor memory">{{registroDireccionMemoria}}</span>
+      <div class="memory-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Dirección</th>
+              <th>Contenido</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Iterar sobre las claves y valores del diccionario 'memoria' -->
+            <tr *ngFor="let entry of memoria | keyvalue">
+              <td class="address">{{ entry.key }}</td>
+              <td class="data">{{ entry.value }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-valor">Registro de Datos</div>
+      <span class="valor memory">{{registroDatoMemoria}}</span>
+    </div>
+  </div>
+
+  <!-- Unidad Aritmético-lógica (ALU) -->
+  <div class="alu">
+    <div class="section-title">Unidad aritmético-lógica (ALU)</div>
+    <div class="alu-elements">
+      <div class="text-valor">Acumulador</div>
+      <span class="valor alu">{{acumuladorALU}}</span>
+      <div class="text-valor">Registro de Entrada</div>
+      <span class="valor alu">{{registroEntradaALU}}</span>
+    </div>
+  </div>
+</div>
+<div class="container-button">
+  <div class="button-explication">
+    <div class="div-button">
+      <button class="button" [disabled]="siguienteBloqueado" (click)="siguiente()">
+        Siguiente
+      </button>
+    </div>
+    <h2>{{explication}}</h2>
+  </div>
+</div>

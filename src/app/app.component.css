@@ -1,0 +1,130 @@
+.cpu-diagram {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.section-title {
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 25px;
+}
+
+.component {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.control-unit {
+  border: 2px solid #52b2f7;
+}
+
+.alu {
+  border: 2px solid #56f099;
+}
+
+.memory {
+  border: 2px solid #f4b651;
+}
+
+.control-unit {
+  background-color: #8ecffd;
+}
+
+.alu {
+  background-color: #8af1b6;
+}
+
+.memory {
+  background-color: #fdcc7e;
+}
+
+.control-elements,
+.alu-elements,
+.memory-elements {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.text-valor {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+.valor {
+  width: auto;
+  height: auto;
+  background-color: white;
+  text-align: center;
+  font-size: 35px;
+  margin-bottom: 30px;
+}
+
+.valor-decodificador {
+  font-size: 90px;
+}
+
+table,
+th,
+td {
+  border: 1px solid #000;
+  text-align: center;
+}
+
+th,
+td {
+  padding: 5px;
+}
+
+th {
+  background-color: #f1ab3b;
+  font-size: 25px;
+}
+
+.address {
+  background-color: #f2be6a;
+  font-size: 20px;
+}
+
+.data {
+  background-color: papayawhip;
+  font-size: 20px;
+}
+
+.container-button {
+  display: flex;
+  justify-content: center;
+}
+
+.button-explication {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.div-button {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  width: 98px;
+  height: auto;
+  font-size: 20px;
+}
+
+h2 {
+  text-align: center;
+}

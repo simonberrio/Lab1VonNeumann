@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
   acumuladorALU: string = "00000000";
   contadorPrograma: number = 0;
   decodificador: string = "...";
+  explication: string = "";
   instruccionesDecodificador: Diccionario = {
     '0000': '+',
     '0001': '-',
@@ -29,7 +30,7 @@ export class AppComponent implements OnInit {
     '0100': '01110000',
     '0101': '00001000',
     '0110': '00000011',
-    '0111': '01111101',
+    '0111': '00000000',
   };
   registroDatoMemoria: string = "00000000";
   registroDireccionMemoria: string = "0000";
@@ -50,6 +51,7 @@ export class AppComponent implements OnInit {
   //Método que pone el contador en el registro de direcciones y lo aumenta
   buscarEnMemoria() {
     this.registroDatoMemoria = this.memoria[this.registroDireccionMemoria];
+    this.explication = "Se buscó en la memoria con el registro de direcciones y se guardo el valor encontrado en el registro de datos.";
     if (this.sigueRealizaOperacion) {
       this.siguienteInstruccion = "realizaOperacion";
     } else {
@@ -58,29 +60,32 @@ export class AppComponent implements OnInit {
   }
 
   leerInstruccion() {
+    this.explication = "La unidad de control obtuvó el registro de instrucciones del registro de datos y lo interpretó obteniendo el decodificador y el registro de direcciones.";
     this.registroInstruccion = this.registroDatoMemoria;
     this.decodificador = this.instruccionesDecodificador[this.registroInstruccion.substring(0, 4)];
     this.registroDireccionMemoria = this.registroInstruccion.substring(4);
     //busca en memoria
     this.siguienteInstruccion = "buscarEnMemoria";
     this.sigueRealizaOperacion = true;
+    if (this.decodificador == "...") {
+      this.explication += " Se finalizó el programa."
+      this.siguienteBloqueado = true;
+    }
   }
 
   potenciaBinaria(baseBinaria: string, exponente: string): string {
     // Convertir la base binaria a decimal
     let baseDecimal = parseInt(baseBinaria, 2);
     let exponenteDecimal = parseInt(exponente, 2);
-
     // Calcular la potencia en decimal
     let resultadoDecimal = Math.pow(baseDecimal, exponenteDecimal);
-    console.log("resultadoDecimal", resultadoDecimal)
-
     // Convertir el resultado de vuelta a binario
     let respuesta = resultadoDecimal.toString(2);
     return respuesta.padStart(8, '0');
   }
 
   realizaOperacion() {
+    this.explication = "La ALU obtuvó el registro de entrada del registro de datos, realizó la operación que está en el decodificador entre el acumulador y el registro de entrada y se guardó el resultado en el acumulador.";
     this.registroEntradaALU = this.registroDatoMemoria;
     if (this.decodificador === "+") {
       this.acumuladorALU = this.registroEntradaALU; //En este caso lo dejó solo poniendo en registro de entrada en el de acumulado por que solo se hará en la primera operación pero lo ideal sería que aquí estuviera la lógica de sumar.
@@ -90,26 +95,25 @@ export class AppComponent implements OnInit {
       this.acumuladorALU = this.potenciaBinaria(this.acumuladorALU, this.registroEntradaALU);
     } else if (this.decodificador == "M") {
       this.memoria[this.registroDireccionMemoria] = this.acumuladorALU;
+      this.explication += " Se guardó el valor del acumulador en la memoria en la dirección del registro de direcciones.";
     } else if (this.decodificador == "...") {
       this.siguienteBloqueado = true;
     }
     this.siguienteInstruccion = "usarContador";
     this.sigueRealizaOperacion = false;
+
   }
 
   restarBinarios(binario1: string, binario2: string): string {
     // Convertir binarios a números decimales
     let numero1 = parseInt(binario1, 2);
     let numero2 = parseInt(binario2, 2);
-
     // Realizar la resta
     let resultado = numero1 - numero2;
-
     // Manejar el caso de resultado negativo
     if (resultado < 0) {
       throw new Error("El resultado de la resta es negativo, no se puede representar como binario sin signo.");
     }
-
     // Convertir el resultado de vuelta a binario
     let respuesta = resultado.toString(2);
     return respuesta.padStart(8, '0');
@@ -140,6 +144,7 @@ export class AppComponent implements OnInit {
     this.contadorPrograma++;
     //Sigue buscar en memoria.
     this.siguienteInstruccion = "buscarEnMemoria";
+    this.explication = "La unidad de control emitió el contador de programa al registro de direcciones de memoría y aumentó el contador.";
   }
 
   //Poner el contador en registro de direcciones
