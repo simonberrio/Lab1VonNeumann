@@ -101,7 +101,40 @@ export class AppComponent implements OnInit {
     }
     this.siguienteInstruccion = "usarContador";
     this.sigueRealizaOperacion = false;
+  }
 
+  reiniciar() {
+    this.acumuladorALU = "00000000";
+    this.contadorPrograma = 0;
+    this.decodificador = "...";
+    this.explication = "";
+    this.instruccionesDecodificador = {
+      '0000': '+',
+      '0001': '-',
+      '0010': '*',
+      '0011': '^',
+      '0100': '&',
+      '0101': '|',
+      '0110': 'M',
+      '0111': '...',
+    };
+    this.sigueRealizaOperacion = false;
+    this.memoria = {
+      '0000': '00000101',
+      '0001': '00010110',
+      '0010': '00110110',
+      '0011': '01100111',
+      '0100': '01110000',
+      '0101': '00001000',
+      '0110': '00000011',
+      '0111': '00000000',
+    };
+    this.registroDatoMemoria = "00000000";
+    this.registroDireccionMemoria = "0000";
+    this.registroInstruccion = "00000000";
+    this.registroEntradaALU = "00000000";
+    this.siguienteBloqueado = false;
+    this.siguienteInstruccion = "usarContador";
   }
 
   restarBinarios(binario1: string, binario2: string): string {

@@ -123,6 +123,8 @@ th {
   width: 98px;
   height: auto;
   font-size: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 h2 {
